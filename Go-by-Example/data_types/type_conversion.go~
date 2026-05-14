@@ -1,0 +1,12 @@
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	a := 80 // int
+	b := 91.8 // float64
+	sum := a + b // int + float64 not allowed
+	fmt.Println(sum)
+}

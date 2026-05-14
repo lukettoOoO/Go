@@ -1,0 +1,12 @@
+package main
+
+import "fmt"
+
+func main() {
+	s := []int{2, 3, 5, 7, 11}
+	printSlice(s)
+
+	// slice the slice to give it zero length
+	s = s[:0]
+	printSlice(s)
+}
