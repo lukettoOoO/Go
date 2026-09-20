@@ -24,8 +24,8 @@ func main () {
 	fmt.Printf("struct3: %#v\n", p)
 
 	// to print the type of a value, use %T
-	fmt.Printf("struct3: %T\n", p)
-
+	fmt.Printf("type: %T\n", p)
+	
 	// formatting booleans is straight-forward
 	fmt.Printf("bool: %t\n", true)
 
