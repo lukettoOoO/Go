@@ -17,7 +17,7 @@ func main() {
 
 	// loggers can be configured with flags to set their output format
 	// by default, the standard logger has the log.Ldate and log.Ltime flags set, and these are collected in log.LstdFlags
-	// we can chagne its flags to emit time with microsecond accuracy, for example
+	// we can change its flags to emit time with microsecond accuracy, for example
 	log.SetFlags(log.LstdFlags | log.Lmicroseconds)
 	log.Println("with micro")
 
@@ -29,4 +29,27 @@ func main() {
 	// when creating a new logger, we can set a prefix to distinguish its output from other loggers
 	mylog := log.New(os.Stdout, "my:", log.LstdFlags)
 	mylog.Println("from mylog")
+
+	// we can set the prefix on existing loggers (including the standard one) with the SetPrefix method
+	mylog.SetPrefix("ohmy:")
+	mylog.Println("from mylog")
+
+	// loggers can have custom output targets; any io.Writer works
+	var buf bytes.Buffer
+	buflog := log.New(&buf, "buf:", log.LstdFlags)
+
+	// this call writes the log output into buf
+	buflog.Println("hello")
+
+	// this will actually show it on standard output
+	fmt.Print("from buflog", buf.String())
+
+	// the slog package provides structured log output
+	// for example, logging in json format is straightforward
+	jsonHandler := slog.NewJSONHandler(os.Stderr, nil)
+	myslog := slog.New(jsonHandler)
+	myslog.Info("hi there")
+
+	// in addition to the message, slog output can contain an arbitrary number of key=value pairs
+	myslog.Info("hello again", "key", "val", "age", 25)
 }
